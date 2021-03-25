@@ -15,7 +15,6 @@
  */
 package com.google.cloud.spark.bigquery;
 
-import io.netty.buffer.ArrowBuf;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import org.apache.arrow.vector.*;
@@ -386,7 +385,7 @@ public class ArrowSchemaConverter extends ColumnVector {
       if (stringResult.isSet == 0) {
         return null;
       } else {
-        ArrowBuf offsets = accessor.getOffsetBuffer();
+        var offsets = accessor.getOffsetBuffer();
         int index = rowId * VarCharVector.OFFSET_WIDTH;
         int start = offsets.getInt(index);
         int end = offsets.getInt(index + VarCharVector.OFFSET_WIDTH);
@@ -514,7 +513,7 @@ public class ArrowSchemaConverter extends ColumnVector {
 
     @Override
     final ColumnarArray getArray(int rowId) {
-      ArrowBuf offsets = accessor.getOffsetBuffer();
+      var offsets = accessor.getOffsetBuffer();
       int index = rowId * ListVector.OFFSET_WIDTH;
       int start = offsets.getInt(index);
       int end = offsets.getInt(index + ListVector.OFFSET_WIDTH);
